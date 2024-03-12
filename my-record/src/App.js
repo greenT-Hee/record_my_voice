@@ -1,3 +1,4 @@
+import "./style/reset.css"
 
 function App() {
   return (
