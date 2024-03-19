@@ -13,7 +13,7 @@ const BgStyle = styled.div`
 `
 const WrapCont = styled.section`
   position: absolute;
-  min-width: 5000px;
+  min-width: 100%;
   left: 50%;
   right: 50%;
   top: 50%;
@@ -56,10 +56,10 @@ function Home() {
   return (
     <BgStyle>
       <WrapCont>
-        <Title>SMART VOICE RECORDER</Title>
+        <Title>🎙️ DEV RECORDER</Title>
         <BtnDiv>
-          <Btn type="button" onClick={() => navigate('/studyroom')}>공부하러가기</Btn>
-          <Btn type="button" onClick={() => navigate('/playground')}>놀러나가기</Btn>
+          <Btn type="button" onClick={() => navigate('/studyroom')}>실전 연습하기</Btn>
+          <Btn type="button" onClick={() => navigate('/playground')}>공부하러가기</Btn>
         </BtnDiv>
       </WrapCont>
     </BgStyle>
