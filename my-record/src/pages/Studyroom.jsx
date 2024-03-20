@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import styled from "styled-components"
 
 
@@ -11,7 +11,7 @@ function Studyroom() {
   const [analyser, setAnalyser] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
   const chunks = [];
-  const buttonText = currentIndex >= 3 ? "끝" : "저장 후 다음";
+  const buttonText = currentIndex >= 3 ? "끝" : "다음 문제";
   const progressIndex  = currentIndex >= 3 ? 3 : `${currentIndex + 1}}`;
   const texts = [
     '1. 브라우저 렌더링 순서를 설명해주세요.',
@@ -58,16 +58,43 @@ function Studyroom() {
       setMedia(mediaRecorder);
       makeSound(stream);
       analyser.onaudioprocess =  function (e) {
-        setOnRec(false);
+        setOnRec(true);
       };
     }).catch((err) => {
       alert("마이크 사용 권한을 허용해야 뇩음을 진행할 수 있습니다.")
     })
   };
   const offRecVoice = () => {
-    console.log('offRecVoice')
+    // Blob 데이터에 대한 응답 받기
+    media.ondataavailable = function (e) {
+      console.log(e.data);
+      chunks.push(e.data);
+      setAudioUrl(e.data);
+      setOnRec(false);
+    };
+
+    // 모든 트랙에서 stop()을 호출해 오디오 스트림을 정지
+    stream.getAudioTracks().forEach((ele) => {
+      ele.stop();
+    });
+
+    // 미디어 캡처 중지 
+    media.stop();
+    
+    // 메서드가 호출된 노드 연결 해제
+    analyser.disconnect();
+    source.disconnect();
+
   };
-  const checkRecVoice = () => {};
+
+  const checkRecVoice = useCallback(() => {
+    if(audioUrl) {
+      const audio = new Audio(URL.createObjectURL(audioUrl));
+      audio.play();
+      audio.pause();
+      console.log(audio)
+    }
+  }, [audioUrl]); 
 
   return (
     <Section>
@@ -87,9 +114,9 @@ function Studyroom() {
 
         {/* 버튼 */}
         <BtnUl>
-          <BtnLi><Btn type="button" onClick={onRec ? offRecVoice : onRecVoice }>{onRec ? "녹음 중지" : "녹음 시작"}</Btn></BtnLi>
-          <BtnLi><Btn type="button" onClick={checkRecVoice}>결과 확인</Btn></BtnLi>
-          <BtnLi><Btn type="button" onClick={handleClickNext}>{buttonText}</Btn></BtnLi>
+          <BtnLi><Btn type="button" onClick={ onRec ? offRecVoice : onRecVoice }>{onRec ? "녹음 중지" : "녹음 시작"}</Btn></BtnLi>
+          <BtnLi><Btn type="button" onClick={ checkRecVoice }>결과 확인</Btn></BtnLi>
+          <BtnLi><Btn type="button" onClick={ handleClickNext }>{buttonText}</Btn></BtnLi>
         </BtnUl>
     </Section>
   )
