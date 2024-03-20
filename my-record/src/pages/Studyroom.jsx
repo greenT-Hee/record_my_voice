@@ -4,7 +4,14 @@ import styled from "styled-components"
 
 function Studyroom() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const buttonText = currentIndex >= 3 ? "끝" : "다음";
+  const [onRec, setOnRec] = useState(false);
+  const [media, setMedia] = useState("");
+  const [stream, setStream] = useState("");
+  const [source, setSource] = useState("");
+  const [analyser, setAnalyser] = useState("");
+  const [audioUrl, setAudioUrl] = useState("");
+  const chunks = [];
+  const buttonText = currentIndex >= 3 ? "끝" : "저장 후 다음";
   const progressIndex  = currentIndex >= 3 ? 3 : `${currentIndex + 1}}`;
   const texts = [
     '1. 브라우저 렌더링 순서를 설명해주세요.',
@@ -22,6 +29,45 @@ function Studyroom() {
       return newIndex;
     })
   }
+
+  const onRecVoice = () => {
+    console.log('onRecVoice')
+    const audioCtx = new (window.AudioContext)();
+
+    // 1. 스크립트를 통해 음원 진행 상태에 직접 접근
+    const analyser = audioCtx.createScriptProcessor(0, 1, 1);
+    setAnalyser(analyser);
+
+    // 2. 마이크 소스를 통해 발생한 오디오 스트림의 정보를 보여준다.
+    function makeSound (stream) {
+      const source = audioCtx.createMediaStreamSource(stream);
+      setSource(source);
+      source.connect(analyser);
+      analyser.connect(audioCtx.destination);
+    };
+
+    navigator.mediaDevices.getUserMedia({audio : true}).then((stream) => {
+      const mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorder.addEventListener('dataavailable', (e) => {
+        chunks.push(e.data);
+      });
+
+      mediaRecorder.start();
+      setStream(stream);
+      setMedia(mediaRecorder);
+      makeSound(stream);
+      analyser.onaudioprocess =  function (e) {
+        setOnRec(false);
+      };
+    }).catch((err) => {
+      alert("마이크 사용 권한을 허용해야 뇩음을 진행할 수 있습니다.")
+    })
+  };
+  const offRecVoice = () => {
+    console.log('offRecVoice')
+  };
+  const checkRecVoice = () => {};
 
   return (
     <Section>
@@ -41,9 +87,9 @@ function Studyroom() {
 
         {/* 버튼 */}
         <BtnUl>
-          <BtnLi><Btn type="button">녹음 시작</Btn></BtnLi>
-          <BtnLi><Btn type="button">결과 확인</Btn></BtnLi>
-          <BtnLi><Btn type="button" onClick={handleClickNext}>저장 후 다음</Btn></BtnLi>
+          <BtnLi><Btn type="button" onClick={onRec ? offRecVoice : onRecVoice }>{onRec ? "녹음 중지" : "녹음 시작"}</Btn></BtnLi>
+          <BtnLi><Btn type="button" onClick={checkRecVoice}>결과 확인</Btn></BtnLi>
+          <BtnLi><Btn type="button" onClick={handleClickNext}>{buttonText}</Btn></BtnLi>
         </BtnUl>
     </Section>
   )
