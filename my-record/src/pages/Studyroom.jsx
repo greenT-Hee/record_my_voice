@@ -10,6 +10,8 @@ function Studyroom() {
   const [source, setSource] = useState("");
   const [analyser, setAnalyser] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
+  const [openPopup, setOpenPopup] = useState(false);
+  const [popupMsg, setPopupMsg] = useState("");
   const chunks = [];
   const buttonText = currentIndex >= 3 ? "끝" : "다음 문제";
   const progressIndex  = currentIndex >= 3 ? 3 : `${currentIndex + 1}}`;
@@ -30,9 +32,14 @@ function Studyroom() {
     })
   }
 
+  const handlePopup = (msg) => {
+    setOpenPopup(true);
+    setPopupMsg(msg);
+  }
+
   const onRecVoice = () => {
     console.log('onRecVoice')
-    const audioCtx = new (window.AudioContext)();
+    const audioCtx = new window.AudioContext();
 
     // 1. 스크립트를 통해 음원 진행 상태에 직접 접근
     const analyser = audioCtx.createScriptProcessor(0, 1, 1);
@@ -61,7 +68,7 @@ function Studyroom() {
         setOnRec(true);
       };
     }).catch((err) => {
-      alert("마이크 사용 권한을 허용해야 뇩음을 진행할 수 있습니다.")
+      handlePopup("😓\n마이크 사용 권한을 허용해야\n녹음을 진행할 수 있습니다.");
     })
   };
   const offRecVoice = () => {
@@ -91,33 +98,42 @@ function Studyroom() {
     if(audioUrl) {
       const audio = new Audio(URL.createObjectURL(audioUrl));
       audio.play();
-      audio.pause();
+      // audio.pause();
       console.log(audio)
     }
   }, [audioUrl]); 
 
   return (
     <Section>
-        <H1>🎙️ 질문에 대답해주세요</H1>
-        <MenuUl>
-          <MenuList>브라우저/API</MenuList>
-          <MenuList>HTML/CSS</MenuList>
-          <MenuList>JavaScript</MenuList>
-          <MenuList>React</MenuList>
-          <MenuList>TypeScript</MenuList>
-        </MenuUl>
+      <H1>🎙️ 질문에 대답해주세요</H1>
+      <MenuUl>
+        <MenuList>브라우저/API</MenuList>
+        <MenuList>HTML/CSS</MenuList>
+        <MenuList>JavaScript</MenuList>
+        <MenuList>React</MenuList>
+        <MenuList>TypeScript</MenuList>
+      </MenuUl>
 
-        {/* question */}
-        <QuestionBox>
-          <Question>{scriptText}</Question>
-        </QuestionBox>
+      {/* question */}
+      <QuestionBox>
+        <Question>{scriptText}</Question>
+      </QuestionBox>
 
-        {/* 버튼 */}
-        <BtnUl>
-          <BtnLi><Btn type="button" onClick={ onRec ? offRecVoice : onRecVoice }>{onRec ? "녹음 중지" : "녹음 시작"}</Btn></BtnLi>
-          <BtnLi><Btn type="button" onClick={ checkRecVoice }>결과 확인</Btn></BtnLi>
-          <BtnLi><Btn type="button" onClick={ handleClickNext }>{buttonText}</Btn></BtnLi>
-        </BtnUl>
+      {/* 버튼 */}
+      <BtnUl>
+        <BtnLi><Btn type="button" onClick={ onRec ? offRecVoice : onRecVoice }>{onRec ? "녹음 중지" : "녹음 시작"}</Btn></BtnLi>
+        <BtnLi><Btn type="button" onClick={ checkRecVoice }>결과 확인</Btn></BtnLi>
+        <BtnLi><Btn type="button" onClick={ handleClickNext }>{buttonText}</Btn></BtnLi>
+      </BtnUl>
+
+    {openPopup && 
+      <PopupArticle>
+        <PopupBox>
+          <TextArea>{popupMsg}</TextArea>
+          <PopupBtn onClick={() => setOpenPopup(false)}>닫기</PopupBtn>
+        </PopupBox>
+      </PopupArticle>
+    }
     </Section>
   )
 }
@@ -196,4 +212,56 @@ const Btn =  styled.button`
 
 const Question = styled.p`
   vertical-align: middle;
+`
+
+
+// 팝업
+const PopupArticle = styled.article`
+  width: 100%;
+  background: rgba(0,0,0, 0.5);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+`
+
+const PopupBox = styled.div`
+  max-width: 320px;
+  width: calc(100% - 20px);
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+`
+
+const TextArea = styled.p`
+  box-sizing: border-box;
+  padding: 30px 20px;
+  text-align: center;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: pre-wrap;
+`
+
+const PopupBtn = styled.button`
+  width: 100%;
+  border-radius: 0 0 8px 8px;
+  border: none;
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+  background: #c396f7;
+  color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `

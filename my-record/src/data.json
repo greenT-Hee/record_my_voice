@@ -1,0 +1,12 @@
+[
+  {"question": "브라우저 렌더링 과정을 설명하시오.", "answer" : "첫번째는 parsing 단계로, HTML파일과 CSS 파일을 파싱하여 각각 트리를 만듭니다. HTML 파일을 해석하여 DOM 트리를 구성하고, 파싱 중 HTML에 CSS가 포함되면 CSSOM트리 구성 작업을 진행합니다. 두번째는 Style 단계로 두 트리를 결합하여 렌더 트리를 만듭니다. Render 트리는 화면에 보여질 내용만 홈하기 때문에 display:none과 meta tag 같은 화면에 보이지 않는 것들은 포함되지 않습니다. 세번째는 layout 단계로, Render 트리를 화면에 어떻게 배치해야 하는지 노드의 정확한 위와 크기를 계산합니다. 네번째는 Paint 단계로 계산된 값을 이용해 각 노드를 화면상의 실제 픽셀로 변화하고 레이어를 만듭니다. 마지막으로 Composite 단계로 레이어를 합성하여 실제 화면에 나타냅니다.", "categoryId" :"1"},
+  {"question": "주소창에 URL을 입력하면 어떤 일이 생길까요?", "answer" : "1. 사용자가 url을 주소창에 입력, 2. 브라우저가 url의 ip 주소 찾기 우해 캐시에서 DNS 기록 확인(브라우저캐시 > os 캐시 > 라우터 캐시 > ISP 캐시), 3. 요청한 url이 캐시에 없으면 ISP의 DNS 서버가 URL을 호스팅하는 IP 주소를 찾는다. 4. 브라우저가 해당 웹 서버와 TCP 연결을 시작, 5. TCP 연결이 설정되면 브라우저가 웹 서버에 HTTP 요청을 처리하고 응답을 보냄 > 브라우저가 HTML 콘텐츠를 보여주게 됨. ", "categoryId" :"1"},
+  {"question": "CORS란? 대응 방법은? ", "answer" : "", "categoryId" :"1"},
+  {"question": "", "answer" : "", "categoryId" :"1"},
+  {"question": "", "answer" : "", "categoryId" :"1"},
+  {"question": "", "answer" : "", "categoryId" :"2"},
+  {"question": "", "answer" : "", "categoryId" :"2"},
+  {"question": "", "answer" : "", "categoryId" :"2"},
+  {"question": "", "answer" : "", "categoryId" :"2"},
+  {"question": "", "answer" : "", "categoryId" :"2"}
+]
