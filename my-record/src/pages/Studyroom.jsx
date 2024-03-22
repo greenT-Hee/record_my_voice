@@ -71,6 +71,7 @@ function Studyroom() {
       handlePopup("😓\n마이크 사용 권한을 허용해야\n녹음을 진행할 수 있습니다.");
     })
   };
+
   const offRecVoice = () => {
     // Blob 데이터에 대한 응답 받기
     media.ondataavailable = function (e) {
@@ -91,7 +92,6 @@ function Studyroom() {
     // 메서드가 호출된 노드 연결 해제
     analyser.disconnect();
     source.disconnect();
-
   };
 
   const checkRecVoice = useCallback(() => {
@@ -103,15 +103,20 @@ function Studyroom() {
     }
   }, [audioUrl]); 
 
+  const onRecBtnStyle = {
+    "background": "#ffffff",
+  }
+  
+
   return (
     <Section>
       <H1>🎙️ 질문에 대답해주세요</H1>
       <MenuUl>
+        <MenuList>전체</MenuList>
         <MenuList>브라우저/API</MenuList>
         <MenuList>HTML/CSS</MenuList>
         <MenuList>JavaScript</MenuList>
         <MenuList>React</MenuList>
-        <MenuList>TypeScript</MenuList>
       </MenuUl>
 
       {/* question */}
