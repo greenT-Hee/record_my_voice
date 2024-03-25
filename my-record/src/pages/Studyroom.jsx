@@ -12,6 +12,7 @@ function Studyroom() {
   const [audioUrl, setAudioUrl] = useState("");
   const [openPopup, setOpenPopup] = useState(false);
   const [popupMsg, setPopupMsg] = useState("");
+  const [openCategory, setOpenCategory] = useState(false);
   const chunks = [];
   const buttonText = currentIndex >= 3 ? "끝" : "다음 문제";
   const progressIndex  = currentIndex >= 3 ? 3 : `${currentIndex + 1}}`;
@@ -35,7 +36,8 @@ function Studyroom() {
   const handlePopup = (msg) => {
     setOpenPopup(true);
     setPopupMsg(msg);
-  }
+  };
+
 
   const onRecVoice = () => {
     console.log('onRecVoice')
@@ -103,21 +105,24 @@ function Studyroom() {
     }
   }, [audioUrl]); 
 
-  const onRecBtnStyle = {
-    "background": "#ffffff",
-  }
+  
   
 
   return (
     <Section>
       <H1>🎙️ 질문에 대답해주세요</H1>
-      <MenuUl>
-        <MenuList>전체</MenuList>
-        <MenuList>브라우저/API</MenuList>
-        <MenuList>HTML/CSS</MenuList>
-        <MenuList>JavaScript</MenuList>
-        <MenuList>React</MenuList>
-      </MenuUl>
+      <CateogryArea>
+        <CategoryInput type="text" readOnly value={"전체"} onClick={() => setOpenCategory(true ? false : true)}/>
+        {openCategory && 
+          <MenuUl>
+            <MenuList style={{borderRadius: "8px 8px 0 0"}}>전체</MenuList>
+            <MenuList>브라우저/API</MenuList>
+            <MenuList>HTML/CSS</MenuList>
+            <MenuList>JavaScript</MenuList>
+            <MenuList style={{borderRadius: "0 0 8px 8px", borderBottom: "none"}}>React</MenuList>
+          </MenuUl>
+        }
+      </CateogryArea>
 
       {/* question */}
       <QuestionBox>
@@ -157,27 +162,48 @@ const H1 = styled.h1`
   text-align: center;
   padding: 0 0 30px;
 `
+const CateogryArea = styled.div`
+  width: 200px;
+  position: relative;
+`
+
+const CategoryInput = styled.input`
+  width: 100%;
+  border: 1px solid #b6b6b6;
+  border-radius:  8px;
+  padding: 12px;
+  box-sizing: border-box;
+  color: #7d7d7d;
+  font-size: 12px;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+`
 
 const MenuUl = styled.ul`
-  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 45px;
+  width: 200px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 0;
+  border: 1px solid #adadad;
+  border-radius: 8px;
 `
 const MenuList = styled.li`
-  width: 150px;
+  width: 100%;
   box-sizing: border-box;
-  padding: 12px 16px;
-  background: #d59aff;
-  border-radius: 60px;
-  color: #fff;
-  font-size: 16px;
+  padding: 12px;
+  background: #fff;
+  color: #7c7c7c;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1;
-  text-align: center;
   cursor: pointer;
+  border-bottom: 1px solid #adadad;
 `
 
 const QuestionBox = styled.div`
