@@ -58,8 +58,8 @@ function Home() {
       <WrapCont>
         <Title>🎙️ DEV RECORDER</Title>
         <BtnDiv>
-          <Btn type="button" onClick={() => navigate('/studyroom')}>녹음하러 가기</Btn>
-          <Btn type="button" onClick={() => navigate('/playground')}>공부하러 가기</Btn>
+          <Btn type="button" onClick={() => navigate('/record')}>녹음하러 가기</Btn>
+          <Btn type="button" onClick={() => navigate('/study')}>공부하러 가기</Btn>
         </BtnDiv>
       </WrapCont>
     </BgStyle>

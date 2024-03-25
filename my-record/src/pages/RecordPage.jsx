@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react";
 import styled from "styled-components"
+import iconArrowDown from "../assets/ico-arrow-down.png"
+import questionData from "../data.json"
 
-
-function Studyroom() {
+function RecordPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [onRec, setOnRec] = useState(false);
   const [media, setMedia] = useState("");
@@ -13,22 +14,18 @@ function Studyroom() {
   const [openPopup, setOpenPopup] = useState(false);
   const [popupMsg, setPopupMsg] = useState("");
   const [openCategory, setOpenCategory] = useState(false);
+  const [openAnswer, setOpenAnswer] = useState(false);
   const chunks = [];
-  const buttonText = currentIndex >= 3 ? "끝" : "다음 문제";
-  const progressIndex  = currentIndex >= 3 ? 3 : `${currentIndex + 1}}`;
-  const texts = [
-    '1. 브라우저 렌더링 순서를 설명해주세요.',
-    '2. 리액트를 왜 사용하는가',
-    '3. 타입스크립트 사용 여부',
-    '수고하셨습니다. 🙌'
-  ];
-  const scriptText = texts[currentIndex];
+  const [jsonData, setJsonData] = useState(questionData)
+  const buttonText = currentIndex >= jsonData.length - 1 ? "처음으로" : "다음 문제";
+  const progressIndex  = currentIndex >= jsonData.length - 1 ? jsonData.length - 1 : `${currentIndex + 1}}`;
+  const scriptText = jsonData[currentIndex].question;
+  const answerText = jsonData[currentIndex].answer;
 
   const handleClickNext = (e) => {
-    console.log(currentIndex)
     setCurrentIndex((prevIndex) => {
       const newIndex = prevIndex + 1;
-      if (newIndex >= 4) return 0;
+      if (newIndex >= jsonData.length) return 0;
       return newIndex;
     })
   }
@@ -37,6 +34,21 @@ function Studyroom() {
     setOpenPopup(true);
     setPopupMsg(msg);
   };
+
+  const [CatVal, setCatVal] = useState("전체");
+  const [CatID, setCatId] = useState("ALL");
+  const selectCategory = (e) => {
+    setCatVal(e.target.textContent);
+    setCatId(e.target.id);
+    setOpenCategory(false);
+    setCurrentIndex(0);
+
+    if(e.target.id === 'ALL') {
+      setJsonData(questionData)
+    } else {
+      setJsonData(questionData.filter(ele => ele.categoryId === e.target.id))
+    }
+  }
 
 
   const onRecVoice = () => {
@@ -102,26 +114,30 @@ function Studyroom() {
       audio.play();
       // audio.pause();
       console.log(audio)
+    } else {
+      // 녹음 결과가 없음
+      setOpenPopup(true);
+
     }
   }, [audioUrl]); 
 
-  
-  
+
 
   return (
     <Section>
       <H1>🎙️ 질문에 대답해주세요</H1>
       <CateogryArea>
-        <CategoryInput type="text" readOnly value={"전체"} onClick={() => setOpenCategory(true ? false : true)}/>
+        <CategoryInput type="text" readOnly value={CatVal} id={CatID} onClick={() => {openCategory ? setOpenCategory(false) :  setOpenCategory(true)}}/>
         {openCategory && 
-          <MenuUl>
-            <MenuList style={{borderRadius: "8px 8px 0 0"}}>전체</MenuList>
-            <MenuList>브라우저/API</MenuList>
-            <MenuList>HTML/CSS</MenuList>
-            <MenuList>JavaScript</MenuList>
-            <MenuList style={{borderRadius: "0 0 8px 8px", borderBottom: "none"}}>React</MenuList>
+          <MenuUl onClick={selectCategory}>
+            <MenuList style={{borderRadius: "8px 8px 0 0"}} id="ALL">전체</MenuList>
+            <MenuList id="1">브라우저/API</MenuList>
+            <MenuList id="2">HTML/CSS</MenuList>
+            <MenuList id="3">JavaScript</MenuList>
+            <MenuList id="4" style={{borderRadius: "0 0 8px 8px", borderBottom: "none"}}>React</MenuList>
           </MenuUl>
         }
+        <IconArrow src={iconArrowDown} alt=""/>
       </CateogryArea>
 
       {/* question */}
@@ -134,8 +150,9 @@ function Studyroom() {
         <BtnLi><Btn type="button" onClick={ onRec ? offRecVoice : onRecVoice }>{onRec ? "녹음 중지" : "녹음 시작"}</Btn></BtnLi>
         <BtnLi><Btn type="button" onClick={ checkRecVoice }>결과 확인</Btn></BtnLi>
         <BtnLi><Btn type="button" onClick={ handleClickNext }>{buttonText}</Btn></BtnLi>
+        <BtnLi><Btn type="button" onClick={ () => setOpenAnswer(true) }>정답 보기</Btn></BtnLi>
       </BtnUl>
-
+      
     {openPopup && 
       <PopupArticle>
         <PopupBox>
@@ -143,17 +160,27 @@ function Studyroom() {
           <PopupBtn onClick={() => setOpenPopup(false)}>닫기</PopupBtn>
         </PopupBox>
       </PopupArticle>
-    }
+    } 
+
+    {openAnswer && 
+      <PopupArticle>
+        <PopupBox>
+          <TextArea>{answerText}</TextArea>
+          <PopupBtn onClick={() => setOpenAnswer(false)}>닫기</PopupBtn>
+        </PopupBox>
+      </PopupArticle>
+    }   
     </Section>
   )
 }
 
-export default Studyroom
+export default RecordPage
 
 const Section = styled.section`
   max-width: 850px;
   margin: 120px auto;
   box-sizing: border-box;
+  padding: 0 20px;
   `
 const H1 = styled.h1`
   font-size: 18px;
@@ -166,7 +193,11 @@ const CateogryArea = styled.div`
   width: 200px;
   position: relative;
 `
-
+const IconArrow = styled.img`
+  position: absolute;
+  right: 13px;
+  top: 17px;
+`
 const CategoryInput = styled.input`
   width: 100%;
   border: 1px solid #b6b6b6;
@@ -204,6 +235,11 @@ const MenuList = styled.li`
   line-height: 1;
   cursor: pointer;
   border-bottom: 1px solid #adadad;
+
+  &:hover {
+    color: #747474;
+    background: #f4efff;
+  }
 `
 
 const QuestionBox = styled.div`

@@ -2,17 +2,16 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from 'styled-components'
 import "./style/reset.css"
 import Home from "./pages/Home";
-import Playground from "./pages/Playground";
-import Studyroom from "./pages/Studyroom";
+import RecordPage from "./pages/RecordPage";
+import StudyPage from "./pages/StudyPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/studyroom" element={<Studyroom />}></Route>
-        <Route path="/playground" element={<Playground />}></Route>
-        {/* <Route path="*" element=""></Route> */}
+        <Route path="/record" element={<RecordPage />}></Route>
+        <Route path="/study" element={<StudyPage />}></Route>
       </Routes>
     </BrowserRouter>
   );
