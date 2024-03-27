@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import styled from "styled-components"
 import iconArrowDown from "../assets/ico-arrow-down.png"
-import questionData from "../data.json"
+import questionData from "../questionData.json"
 
 function RecordPage() {
   const [currentIndex, setCurrentIndex] = useState(0);

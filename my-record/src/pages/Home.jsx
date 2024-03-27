@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import bg from '../assets/bg.png'
 import { useNavigate } from "react-router-dom"
+import { parsing } from "../lectureData.js"
+import { useEffect } from "react"
 
 const BgStyle = styled.div`
   background-image: url(${bg});
@@ -53,6 +55,8 @@ const Btn = styled.button`
 
 function Home() {
   const navigate = useNavigate();
+  
+  
   return (
     <BgStyle>
       <WrapCont>
