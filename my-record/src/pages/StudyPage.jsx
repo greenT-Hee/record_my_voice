@@ -8,6 +8,7 @@ const html_courses = await parsing("html css");
 const js_courses = await parsing("JavaScript");
 const react_courses = await parsing("React");
 const cs_courses = await parsing("api 브라우저");
+
 function StudyPage() {
   return (
     <Section>
@@ -19,12 +20,10 @@ function StudyPage() {
           <span>검색</span>
         </SearchButton>
       </SearchArea>
-
       <Courses data={html_courses} title={"HTML/CSS"}/>
       <Courses data={js_courses} title={"JavaScript"}/>
       <Courses data={react_courses} title={"React"}/>
       <Courses data={cs_courses} title={"API/브라우저"}/>
-      
     </Section>
   )
 };
@@ -32,8 +31,8 @@ export default StudyPage
 
 
 const Section = styled.section`
-  padding: 80px 20px;
-  background: #fbf7ff;
+  padding: 80px 40px;
+  background: #fdfaff;
 `
 
 const H1 = styled.h1`

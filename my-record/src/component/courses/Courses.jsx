@@ -1,16 +1,21 @@
 import styled from "styled-components"
+import emptyThumbnail from "../../assets/img-empty-thumbnail.png"
+import { useNavigate } from "react-router-dom"
 
 export default function Courses({title, data}) {
   return (
     <article>
-      <H2>💡 {title}</H2>
+      <WrapTop>
+        <H2>💡 {title}</H2>
+        <MoreBtn href={"https://www.inflearn.com/courses?s=" + encodeURI(title)} target="_blank">다른 강의 찾아보기 👉 </MoreBtn>
+      </WrapTop>
       {/* card */}
       <CardList>
         {data.map((ele, idx) => {
           return (
             <Card key={idx}>
               <a href={"https://www.inflearn.com" + encodeURI(ele.link)} style={{textDecoration: "none"}}>
-                <CardThumbnail src={ele.thumbnail} alt="썸네일" />
+                <CardThumbnail src={ele.thumbnail ? ele.thumbnail : emptyThumbnail}  alt="썸네일" />
                 <ContArea>
                   <CourseTitle>{ele?.title}</CourseTitle>
                   <CourseDesc>{ele?.instructor}</CourseDesc>
@@ -26,13 +31,34 @@ export default function Courses({title, data}) {
   )
 }
 
+const WrapTop = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 24px;
+`
 const H2 = styled.h2`
   font-size: 24px;
   font-weight: 600;
   color: #333;
-  margin: 0 0 24px;
   line-height: 1;
-`
+  `
+ const MoreBtn = styled.a`
+  background: none;
+  border: 2px solid #bbb;
+  color: #888;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 32px;
+  cursor: pointer;
+  text-decoration: none;
+  
+  &:hover {
+    color: #fff;
+    background: #994bec;
+    border: 2px solid #994bec;
+  }
+ `
 
 const CardList = styled.ul`
   width: 100%;
@@ -41,23 +67,22 @@ const CardList = styled.ul`
   gap: 20px;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   overflow-y: hidden;
   overflow-x: scroll;
   padding-bottom: 12px;
 
   &::-webkit-scrollbar {
-    height: 20px;
+    height: 16px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #fff;
-    border: 3px solid#bb77f7;
-    border-radius: 16px;
+    background: #994bec;
+    border: 4px solid#ead6ff;
+    border-radius: 14px;
   }
   &::-webkit-scrollbar-track {
-    background-color: #994bec;
-    margin: 5px;
+    background-color: #ead6ff;
     border-radius: 16px;
   }
 `

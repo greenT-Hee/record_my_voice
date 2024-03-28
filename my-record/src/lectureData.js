@@ -17,7 +17,6 @@ import axios from "axios";
     const $ = cheerio.load(html.data);
     const $cousreList = $(".course_card_item");
     let courses = [];
-  
     $cousreList.each((idx, node) => {
       courses.push({
         title: $(node).find('.course_card_item .course_title:eq(0)').text(),
