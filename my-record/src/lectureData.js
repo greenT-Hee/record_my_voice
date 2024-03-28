@@ -22,7 +22,7 @@ import axios from "axios";
       courses.push({
         title: $(node).find('.course_card_item .course_title:eq(0)').text(),
         instructor: $(node).find('.course_card_item .instructor').text(),
-        price: $(node).find('.course_card_item .price > del').text(),
+        price: $(node).find('.course_card_item .card-content .price').text().split("₩")[1],
         thumbnail: $(node).find('.course_card_item .card-image .is_thumbnail > img').attr("src"),
       })
     })
