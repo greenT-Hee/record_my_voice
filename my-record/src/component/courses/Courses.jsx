@@ -14,7 +14,7 @@ export default function Courses({title, data}) {
         {data.map((ele, idx) => {
           return (
             <Card key={idx}>
-              <a href={"https://www.inflearn.com" + encodeURI(ele.link)} style={{textDecoration: "none"}}>
+              <a href={"https://www.inflearn.com" + encodeURI(ele.link)} target="_blank" style={{textDecoration: "none"}}>
                 <CardThumbnail src={ele.thumbnail ? ele.thumbnail : emptyThumbnail}  alt="썸네일" />
                 <ContArea>
                   <CourseTitle>{ele?.title}</CourseTitle>
@@ -44,19 +44,17 @@ const H2 = styled.h2`
   line-height: 1;
   `
  const MoreBtn = styled.a`
-  background: none;
-  border: 2px solid #bbb;
-  color: #888;
+  color: #fff;
+  background: #994bec;
+  border: 2px solid #994bec;
   font-weight: 700;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 32px;
   cursor: pointer;
   text-decoration: none;
   
   &:hover {
-    color: #fff;
-    background: #994bec;
-    border: 2px solid #994bec;
+    opacity: 0.8;
   }
  `
 

@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import styled from "styled-components"
 import iconArrowDown from "../assets/ico-arrow-down.png"
 import questionData from "../questionData.json"
+import { BackBtn } from "../component/CommonBtns";
 
 function RecordPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -125,6 +126,8 @@ function RecordPage() {
 
   return (
     <Section>
+      {/* 뒤로가기 버튼 */}
+      <BackBtn />
       <H1>🎙️ 질문에 대답해주세요</H1>
       <CateogryArea>
         <CategoryInput type="text" readOnly value={CatVal} id={CatID} onClick={() => {openCategory ? setOpenCategory(false) :  setOpenCategory(true)}}/>
