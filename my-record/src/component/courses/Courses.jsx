@@ -38,7 +38,7 @@ export default function Courses({title}) {
 
   useEffect(() => {
     parsing(title);
-  }, [parsing])
+  }, [parsing]);
 
   return (
     <article>
@@ -46,27 +46,38 @@ export default function Courses({title}) {
         <H2>💡 {title}</H2>
         <MoreBtn href={"https://www.inflearn.com/courses?s=" + encodeURI(title)} target="_blank">다른 강의 찾아보기 👉 </MoreBtn>
       </WrapTop>
+      {data.length <=0 && <Loading>준비중, 조금만 기다려주세요 (👉ﾟヮﾟ)👉</Loading>}
       {/* card */}
-      <CardList>
-        {data.map((ele, idx) => {
-          return (
-            <Card key={idx}>
-              <a href={"https://www.inflearn.com" + encodeURI(ele.link)} target="_blank" style={{textDecoration: "none"}}>
-                <CardThumbnail src={ele.thumbnail ? ele.thumbnail : emptyThumbnail}  alt="썸네일" />
-                <ContArea>
-                  <CourseTitle>{ele?.title}</CourseTitle>
-                  <CourseDesc>{ele?.instructor}</CourseDesc>
-                  <CourseDesc>가격 <CoursePrice>{ele.price ? "₩" + ele.price + "원" : "무료"}</CoursePrice></CourseDesc>
-                </ContArea>
-              </a>
-            </Card>
-          )
-        })
-        }
-      </CardList>
+      {data.length > 0 && 
+        <CardList>
+          {data.map((ele, idx) => {
+            return (
+              <Card key={idx}>
+                <a href={"https://www.inflearn.com" + encodeURI(ele.link)} target="_blank" style={{textDecoration: "none"}}>
+                  <CardThumbnail src={ele.thumbnail ? ele.thumbnail : emptyThumbnail}  alt="썸네일" />
+                  <ContArea>
+                    <CourseTitle>{ele?.title}</CourseTitle>
+                    <CourseDesc>{ele?.instructor}</CourseDesc>
+                    <CourseDesc>가격 <CoursePrice>{ele.price ? "₩" + ele.price + "원" : "무료"}</CoursePrice></CourseDesc>
+                  </ContArea>
+                </a>
+              </Card>
+            )
+          })
+          }
+        </CardList>
+      }
     </article>
   )
 }
+
+const Loading = styled.p`
+  font-size: 20px;
+  font-weight: 500;
+  color: #994bec;
+  padding: 80px 0;
+  text-align: center;
+`
 
 const WrapTop = styled.div`
   display: flex;

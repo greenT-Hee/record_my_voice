@@ -11,7 +11,7 @@ function StudyPage() {
   const handleSearch = (e) => {
     e.preventDefault();
     setIsSearch(true);
-    setSearchSubject(e.target.value)
+    setSearchSubject(e.target.value);
   }
 
   return (
