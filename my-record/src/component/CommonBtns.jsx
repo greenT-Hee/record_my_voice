@@ -19,8 +19,6 @@ export function TopbarBtn() {
   return <Topbar type="button" onClick={handleScrollTop}>▲<br/>TOP</Topbar>
 };
 
-
-
 const BackStyle = styled.button`
   padding: 12px 16px;
   position: absolute;

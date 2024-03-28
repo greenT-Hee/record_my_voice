@@ -30,6 +30,7 @@ function StudyPage() {
       {/* 뒤로가기 버튼 */}
       <BackBtn />
       {/* 인프런 바로가기 버튼 */}
+      <GoInflearnBtn href="https://www.inflearn.com/" target="_blank">인프런 바로가기</GoInflearnBtn>
       {/* 탑바 */}
       <TopbarBtn />
     </Section>
@@ -79,4 +80,22 @@ const SearchButton = styled.button`
   border: none;
   background: #fff;
   cursor: pointer;
+`
+
+const GoInflearnBtn = styled.a`
+  padding: 12px 16px;
+  position: absolute;
+  top: 40px;
+  right: 80px;
+  border-radius: 32px;
+  z-index: 1000;
+  line-height: 1;
+  cursor: pointer;
+  border: none;
+  background: #fff;
+  color: #43a77a;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-decoration: none;
 `
