@@ -2,30 +2,38 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import searchIcon from "../assets/ico-search.svg"
 import Courses from "../component/courses/Courses.jsx";
-import {parsing} from '../lectureData.js'
 import { TopbarBtn, BackBtn } from "../component/CommonBtns.jsx";
 
-const html_courses = await parsing("html css");
-const js_courses = await parsing("JavaScript");
-const react_courses = await parsing("React");
-const cs_courses = await parsing("api 브라우저");
-
 function StudyPage() {  
+  const [isSearch, setIsSearch] = useState(false);
+  const [searchSubject, setSearchSubject] = useState(false);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setIsSearch(true);
+    setSearchSubject(e.target.value)
+  }
+
   return (
     <Section>
-      <H1>🌿인프런 강의 듣고 레벨업</H1>
+      <H1>인프런 강의 듣고 레벨업</H1>
       <SearchArea>
         <SearchInput type="text" placeholder="원하는 주제를 검색하세요"/>
-        <SearchButton>
+        <SearchButton type="button" onClick={handleSearch}>
           <img src={searchIcon} alt="검색하기" />
           <span>검색</span>
         </SearchButton>
       </SearchArea>
       {/* 강의 목록 */}
-      <Courses data={html_courses} title={"HTML/CSS"}/>
-      <Courses data={js_courses} title={"JavaScript"}/>
-      <Courses data={react_courses} title={"React"}/>
-      <Courses data={cs_courses} title={"API/브라우저"}/>
+      {!isSearch && 
+        <>
+          <Courses title={"HTML/CSS"}/>
+          <Courses title={"JavaScript"}/>
+          <Courses title={"React"}/>
+          <Courses title={"API/브라우저"}/>
+        </>
+      }
+      {isSearch && <Courses title={searchSubject}/>}
 
       {/* 뒤로가기 버튼 */}
       <BackBtn />
@@ -96,6 +104,6 @@ const GoInflearnBtn = styled.a`
   color: #43a77a;
   font-weight: 700;
   font-size: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   text-decoration: none;
 `

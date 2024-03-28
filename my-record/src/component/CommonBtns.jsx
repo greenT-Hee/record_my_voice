@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 
+
 export function BackBtn() {
   const nav = useNavigate()
   return <BackStyle type="button" onClick={() => {nav("/")}}>◀ 뒤로가기</BackStyle>
@@ -32,7 +33,7 @@ const BackStyle = styled.button`
   background: #ead6ff;
   color: #994bec;
   font-weight: 700;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 `
 const Topbar = styled.button`
   width: 45px;

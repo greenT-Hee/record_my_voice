@@ -1,8 +1,6 @@
-import styled from "styled-components"
-import bg from '../assets/bg.png'
-import { useNavigate } from "react-router-dom"
-import { parsing } from "../lectureData.js"
-import { useEffect } from "react"
+import styled from "styled-components";
+import bg from '../assets/bg.png';
+import { useNavigate } from "react-router-dom";
 
 const BgStyle = styled.div`
   background-image: url(${bg});
