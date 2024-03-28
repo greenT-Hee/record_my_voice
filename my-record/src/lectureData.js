@@ -24,6 +24,7 @@ import axios from "axios";
         instructor: $(node).find('.course_card_item .instructor').text(),
         price: $(node).find('.course_card_item .card-content .price').text().split("₩")[1],
         thumbnail: $(node).find('.course_card_item .card-image .is_thumbnail > img').attr("src"),
+        link: $(node).find('.course_card_item .e_course_click').attr("href"),
       })
     })
     console.log(courses);
