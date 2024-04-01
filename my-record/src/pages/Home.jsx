@@ -2,16 +2,19 @@ import styled from "styled-components";
 import bg from '../assets/bg.png';
 import { useNavigate } from "react-router-dom";
 
-const BgStyle = styled.div`
-  background-image: url(${bg});
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  max-width: 100vw;
-  height: 100vh;
+const BgStyle = styled.section`
+ background: #fff5de;
+ width: 100%;
+ height: 100vh;
 `
-const WrapCont = styled.section`
+
+const Snoopy = styled.img`
+  width: 36%;
+  position: absolute;
+  bottom: 0;
+  left: -80px;
+`
+const WrapCont = styled.div`
   position: absolute;
   min-width: 100%;
   left: 50%;
@@ -21,28 +24,28 @@ const WrapCont = styled.section`
 `
 const Title = styled.h1`
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 40px;
   font-size: 38px;
-  font-weight: 700;
-  color: #414141;
+  font-weight: 800;
+  color: #933BEF;
 `
 const BtnDiv = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
   justify-content: center;
   align-items: center;
 `
 
 const Btn = styled.button`
-  min-width: 280px;
+  min-width: 240px;
   border: none;
-  background: #fff;
+  background: #933BEF;
   box-sizing: border-box;
   border-radius: 32px;
-  padding: 14px 0;
-  font-size: 20px;
-  color: #414141;
+  padding: 12px 0;
+  font-size: 16px;
+  color: #fff;
   font-weight: 700;
   cursor: pointer;
 
@@ -57,8 +60,9 @@ function Home() {
   
   return (
     <BgStyle>
+      <Snoopy src={bg} alt="" />
       <WrapCont>
-        <Title>🎙️ DEV RECORDER</Title>
+        <Title>STUDY WITH MY VOICE</Title>
         <BtnDiv>
           <Btn type="button" onClick={() => navigate('/record')}>녹음하러 가기</Btn>
           <Btn type="button" onClick={() => navigate('/study')}>공부하러 가기</Btn>
