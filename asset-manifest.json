@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/record_my_voice/static/css/main.27fbcb7e.css",
+    "main.js": "/record_my_voice/static/js/main.d3baae4c.js",
+    "static/media/bg.png": "/record_my_voice/static/media/bg.28f4c330f8ba07317f0e.png",
+    "static/media/ico-search.svg": "/record_my_voice/static/media/ico-search.b92468d6b5a912a608b2716bd0cae5e1.svg",
+    "index.html": "/record_my_voice/index.html",
+    "main.27fbcb7e.css.map": "/record_my_voice/static/css/main.27fbcb7e.css.map",
+    "main.d3baae4c.js.map": "/record_my_voice/static/js/main.d3baae4c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.27fbcb7e.css",
+    "static/js/main.d3baae4c.js"
+  ]
+}
