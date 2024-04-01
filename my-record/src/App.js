@@ -7,7 +7,7 @@ import StudyPage from "./pages/StudyPage";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="record_my_voice">
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/record" element={<RecordPage />}></Route>
