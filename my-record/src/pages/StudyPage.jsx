@@ -6,30 +6,31 @@ import { TopbarBtn, BackBtn } from "../component/CommonBtns.jsx";
 
 function StudyPage() {  
   const [isSearch, setIsSearch] = useState(false);
-  const [searchSubject, setSearchSubject] = useState("");
+  const [keyword, setKeyword] = useState(false);
+  const inputRef = useRef(null)
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setIsSearch(true);
+    const searchVal = inputRef.current.value;
+    setKeyword(searchVal)
+    searchVal === "" ? setIsSearch(false) : setIsSearch(true);
+    console.log(inputRef.current.value)
   }
 
-  const handleSearchKeyword = (e) => {
-    setSearchSubject(e.target.value);
-    if(e.target.value === "") setIsSearch(false);
-  }
+ 
 
   return (
     <Section>
       <H1>인프런 강의 듣고 레벨업</H1>
       <SearchArea>
-        <SearchInput type="text" placeholder="원하는 주제를 검색하세요" onChange={handleSearchKeyword}/>
+        <SearchInput type="text" ref={inputRef}  placeholder="원하는 주제를 검색하세요" />
         <SearchButton type="button" onClick={handleSearch}>
           <img src={searchIcon} alt="검색하기" />
           <span>검색</span>
         </SearchButton>
       </SearchArea>
       {/* 강의 목록 */}
-      {(!isSearch || !searchSubject) && 
+      {!isSearch && 
         <>
           <Courses title={"HTML/CSS"}/>
           <Courses title={"JavaScript"}/>
@@ -37,7 +38,7 @@ function StudyPage() {
           <Courses title={"API/브라우저"}/>
         </>
       }
-      {(isSearch && searchSubject) && <Courses title={searchSubject}/>}
+      {isSearch && <Courses title={keyword}/>}
 
       {/* 뒤로가기 버튼 */}
       <BackBtn />
