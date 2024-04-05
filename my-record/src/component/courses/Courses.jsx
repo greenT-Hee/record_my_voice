@@ -44,7 +44,7 @@ export default function Courses({title}) {
     <article>
       <WrapTop>
         <H2>💡 {title}</H2>
-        <MoreBtn href={"https://www.inflearn.com/courses?s=" + encodeURI(title)} target="_blank">다른 강의 찾아보기 👉 </MoreBtn>
+        <MoreBtn href={"https://www.inflearn.com/courses?s=" + encodeURI(title)} target="_blank">다른 강의 찾아보기 👉</MoreBtn>
       </WrapTop>
       {data.length <=0 && <Loading>준비중, 조금만 기다려주세요 (👉ﾟヮﾟ)👉</Loading>}
       {/* card */}
@@ -54,7 +54,7 @@ export default function Courses({title}) {
             return (
               <Card key={idx}>
                 <a href={"https://www.inflearn.com" + encodeURI(ele.link)} target="_blank" style={{textDecoration: "none"}}>
-                  <CardThumbnail src={ele.thumbnail ? ele.thumbnail : emptyThumbnail}  alt="썸네일" />
+                  <CardThumbnail src={ele.thumbnail ? ele.thumbnail : emptyThumbnail}  alt="썸네일" loading="lazy"/>
                   <ContArea>
                     <CourseTitle>{ele?.title}</CourseTitle>
                     <CourseDesc>{ele?.instructor}</CourseDesc>

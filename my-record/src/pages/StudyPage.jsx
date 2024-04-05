@@ -53,7 +53,7 @@ export default StudyPage
 
 
 const Section = styled.section`
-  padding: 80px;
+  padding: 120px 80px;
   background: #fdfaff;
 `
 
@@ -99,7 +99,7 @@ const GoInflearnBtn = styled.a`
   padding: 12px 16px;
   position: absolute;
   top: 40px;
-  right: 80px;
+  right: 20px;
   border-radius: 32px;
   z-index: 1000;
   line-height: 1;

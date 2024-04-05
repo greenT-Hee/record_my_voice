@@ -24,7 +24,7 @@ const BackStyle = styled.button`
   padding: 12px 16px;
   position: absolute;
   top: 40px;
-  left: 80px;
+  left: 20px;
   border-radius: 32px;
   z-index: 1000;
   line-height: 1;
@@ -40,7 +40,7 @@ const Topbar = styled.button`
   height: 45px;
   position: fixed;
   bottom: 40px;
-  right: 80px;
+  right: 20px;
   border-radius: 50%;
   z-index: 1000;
   line-height: 1;
