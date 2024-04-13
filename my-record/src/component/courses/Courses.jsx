@@ -10,7 +10,11 @@ export default function Courses({title}) {
   const getHTML = async (keyword) => {
     try {
       const res = await axios.get("https://www.inflearn.com/courses?s=" + encodeURI(keyword), {headers : {
-        "Access-Control-Allow-Origin" : "*"
+        "Access-Control-Allow-Origin" : "*",
+        "User-Agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+        "Accept-Language" : "ko,en;q=0.9,en-US;q=0.8,ko-KR;q=0.7",
+        "Refer": "https://www.inflearn.com/course",
+        "Origin" : 'xhttps://www.inflearn.com/courses'
       }});
       return res;
     } catch (err) {

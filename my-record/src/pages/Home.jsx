@@ -12,7 +12,7 @@ const Snoopy = styled.img`
   width: 36%;
   position: absolute;
   bottom: 0;
-  left: -80px;
+  left: 0;
 `
 const WrapCont = styled.div`
   position: absolute;
